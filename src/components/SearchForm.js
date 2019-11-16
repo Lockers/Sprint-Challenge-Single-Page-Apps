@@ -13,6 +13,7 @@ export default function SearchForm() {
       .get('https://rickandmortyapi.com/api/character/')
       .then(response => {
         setData(response.data.results)
+        setSearchedData(response.data.results)
       })
       .catch(err => {
         console.log("You fucked it:", err)
@@ -25,8 +26,7 @@ export default function SearchForm() {
     setSearchedData(result)
   }
 
-  function changeHandler(e) {
-    e.preventDefault()
+  const changeHandler = e => {
     setSearchInput(e.target.value)
     search(searchInput)
   }
@@ -40,7 +40,7 @@ export default function SearchForm() {
         </label>
       </form>
       {searchedData.map(ind => {
-        return <CharacterCard data={ind}/>
+        return <CharacterCard data={ind} />
       })}
     </section>
   );
