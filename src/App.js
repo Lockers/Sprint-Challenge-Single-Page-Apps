@@ -3,6 +3,7 @@ import Header from "./components/Header.js";
 import WelcomePage from "./components/WelcomePage";
 import { Route } from 'react-router-dom';
 import SearchForm from './components/SearchForm';
+import CharacterCard from './components/CharacterCard'
 
 export default function App() {
 

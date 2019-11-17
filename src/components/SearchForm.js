@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import CharacterCard from "./CharacterCard";
+import Pagination1 from './Pagination';
 
 export default function SearchForm() {
   const [searchInput, setSearchInput] = useState()
   const [data, setData] = useState([])
   const [searchedData, setSearchedData] = useState([])
-
+  const [page, setPage] = useState()
+ 
 
   useEffect(() => {
     axios
@@ -16,19 +18,22 @@ export default function SearchForm() {
         setSearchedData(response.data.results)
       })
       .catch(err => {
-        console.log("You fucked it:", err)
+        console.log("No Good, you suck:", err)
       })
   }, []);
 
+  useEffect(() => {
+    search(searchInput)
+  }, [searchInput])
+
   function search(searchInput) {
-    const result = data.filter(card => card.name.includes(searchInput)
+    const result = data.filter(card => card.name.toLowerCase().includes(searchInput.toLowerCase())
     )
     setSearchedData(result)
   }
 
   const changeHandler = e => {
     setSearchInput(e.target.value)
-    search(searchInput)
   }
   return (
 
@@ -40,8 +45,9 @@ export default function SearchForm() {
         </label>
       </form>
       {searchedData.map(ind => {
-        return <CharacterCard data={ind} />
+        return <CharacterCard key={ind.id} data={ind} />
       })}
+      <Pagination1 />
     </section>
   );
 }
